@@ -74,7 +74,8 @@ struct Stg_Gator_Params : StgParams {
 
 class Stg_Gator : public Strategy {
  public:
-  Stg_Gator(StgParams &_params, Trade *_trade = NULL, string _name = "") : Strategy(_params, _trade, _name) {}
+  Stg_Gator(StgParams &_sparams, TradeParams &_tparams, ChartParams &_cparams, string _name = "")
+      : Strategy(_sparams, _tparams, _cparams, _name) {}
 
   static Stg_Gator *Init(ENUM_TIMEFRAMES _tf = NULL, long _magic_no = NULL, ENUM_LOG_LEVEL _log_level = V_INFO) {
     // Initialize strategy initial values.
@@ -90,8 +91,9 @@ class Stg_Gator : public Strategy {
     GatorParams gator_params(_indi_params);
     _stg_params.SetIndicator(new Indi_Gator(_indi_params));
     // Initialize Strategy instance.
+    ChartParams _cparams(_tf, _Symbol);
     TradeParams _tparams(_magic_no, _log_level);
-    Strategy *_strat = new Stg_Gator(_stg_params, new Trade(new Chart(_tf, _Symbol)), "Gator");
+    Strategy *_strat = new Stg_Gator(_stg_params, _tparams, _cparams, "Gator");
     return _strat;
   }
 
