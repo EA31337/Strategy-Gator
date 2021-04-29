@@ -57,7 +57,7 @@ struct Stg_Gator_Params : StgParams {
 
   // Struct constructors.
   Stg_Gator_Params(GatorParams &_iparams, StgParams &_sparams)
-      : iparams(indi_gator_defaults, _iparams.tf), sparams(stg_gator_defaults) {
+      : iparams(indi_gator_defaults, _iparams.tf.GetTf()), sparams(stg_gator_defaults) {
     iparams = _iparams;
     sparams = _sparams;
   }
