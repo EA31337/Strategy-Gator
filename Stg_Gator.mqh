@@ -11,6 +11,7 @@ INPUT float Gator_SignalOpenLevel = 0.0f;     // Signal open level
 INPUT int Gator_SignalOpenFilterMethod = 32;  // Signal open filter method
 INPUT int Gator_SignalOpenBoostMethod = 0;    // Signal open boost method
 INPUT int Gator_SignalCloseMethod = 2;        // Signal close method (-127-127)
+INPUT int Gator_SignalCloseFilter = 0;        // Signal close filter (-127-127)
 INPUT float Gator_SignalCloseLevel = 0.0f;    // Signal close level
 INPUT int Gator_PriceStopMethod = 1;          // Price stop method
 INPUT float Gator_PriceStopLevel = 0;         // Price stop level
@@ -44,9 +45,9 @@ struct Indi_Gator_Params_Defaults : GatorParams {
 struct Stg_Gator_Params_Defaults : StgParams {
   Stg_Gator_Params_Defaults()
       : StgParams(::Gator_SignalOpenMethod, ::Gator_SignalOpenFilterMethod, ::Gator_SignalOpenLevel,
-                  ::Gator_SignalOpenBoostMethod, ::Gator_SignalCloseMethod, ::Gator_SignalCloseLevel,
-                  ::Gator_PriceStopMethod, ::Gator_PriceStopLevel, ::Gator_TickFilterMethod, ::Gator_MaxSpread,
-                  ::Gator_Shift, ::Gator_OrderCloseTime) {}
+                  ::Gator_SignalOpenBoostMethod, ::Gator_SignalCloseMethod, ::Gator_SignalCloseFilter,
+                  ::Gator_SignalCloseLevel, ::Gator_PriceStopMethod, ::Gator_PriceStopLevel, ::Gator_TickFilterMethod,
+                  ::Gator_MaxSpread, ::Gator_Shift, ::Gator_OrderCloseTime) {}
 } stg_gator_defaults;
 
 // Struct to define strategy parameters to override.
