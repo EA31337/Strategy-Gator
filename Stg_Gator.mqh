@@ -8,7 +8,7 @@ INPUT string __Gator_Parameters__ = "-- Gator strategy params --";  // >>> GATOR
 INPUT float Gator_LotSize = 0;                                      // Lot size
 INPUT int Gator_SignalOpenMethod = 2;                               // Signal open method (-127-127)
 INPUT float Gator_SignalOpenLevel = 0.0f;                           // Signal open level
-INPUT int Gator_SignalOpenFilterMethod = 32;                         // Signal open filter method
+INPUT int Gator_SignalOpenFilterMethod = 32;                        // Signal open filter method
 INPUT int Gator_SignalOpenBoostMethod = 0;                          // Signal open boost method
 INPUT int Gator_SignalCloseMethod = 2;                              // Signal close method (-127-127)
 INPUT float Gator_SignalCloseLevel = 0.0f;                          // Signal close level
@@ -102,33 +102,34 @@ class Stg_Gator : public Strategy {
    */
   bool SignalOpen(ENUM_ORDER_TYPE _cmd, int _method = 0, float _level = 0.0f, int _shift = 0) {
     Indi_Gator *_indi = GetIndicator();
-    bool _is_valid = _indi[_shift].IsValid() && _indi[_shift + 1].IsValid() && _indi[_shift + 2].IsValid();
-    bool _result = _is_valid;
-    if (_is_valid) {
-      switch (_cmd) {
-        case ORDER_TYPE_BUY:
-          // Buy: if the indicator is increasing.
-          _result &= _indi.IsIncreasing(2, LINE_UPPER_HISTOGRAM, _shift);
-          _result &= _indi.IsDecreasing(2, LINE_LOWER_HISTOGRAM, _shift);
-          _result &= _indi.IsIncByPct(_level, LINE_UPPER_HISTOGRAM, _shift, 2);
-          _result &= _indi.IsDecByPct(-_level, LINE_LOWER_HISTOGRAM, _shift, 2);
-          if (_result && _method != 0) {
-            if (METHOD(_method, 0)) _result &= _indi.IsIncreasing(2, LINE_LOWER_HISTOGRAM, _shift + 3);
-            if (METHOD(_method, 1)) _result &= _indi.IsIncreasing(2, LINE_LOWER_HISTOGRAM, _shift + 5);
-          }
-          break;
-        case ORDER_TYPE_SELL:
-          // Sell: if the indicator is decreasing.
-          _result &= _indi.IsDecreasing(2, LINE_UPPER_HISTOGRAM, _shift);
-          _result &= _indi.IsIncreasing(2, LINE_LOWER_HISTOGRAM, _shift);
-          _result &= _indi.IsDecByPct(-_level, LINE_UPPER_HISTOGRAM, _shift, 2);
-          _result &= _indi.IsIncByPct(_level, LINE_LOWER_HISTOGRAM, _shift, 2);
-          if (_result && _method != 0) {
-            if (METHOD(_method, 0)) _result &= _indi.IsDecreasing(2, LINE_UPPER_HISTOGRAM, _shift + 3);
-            if (METHOD(_method, 1)) _result &= _indi.IsDecreasing(2, LINE_UPPER_HISTOGRAM, _shift + 5);
-          }
-          break;
-      }
+    bool _result = _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID);
+    if (!_result) {
+      // Returns false when indicator data is not valid.
+      return false;
+    }
+    switch (_cmd) {
+      case ORDER_TYPE_BUY:
+        // Buy: if the indicator is increasing.
+        _result &= _indi.IsIncreasing(2, LINE_UPPER_HISTOGRAM, _shift);
+        _result &= _indi.IsDecreasing(2, LINE_LOWER_HISTOGRAM, _shift);
+        _result &= _indi.IsIncByPct(_level, LINE_UPPER_HISTOGRAM, _shift, 2);
+        _result &= _indi.IsDecByPct(-_level, LINE_LOWER_HISTOGRAM, _shift, 2);
+        if (_result && _method != 0) {
+          if (METHOD(_method, 0)) _result &= _indi.IsIncreasing(2, LINE_LOWER_HISTOGRAM, _shift + 3);
+          if (METHOD(_method, 1)) _result &= _indi.IsIncreasing(2, LINE_LOWER_HISTOGRAM, _shift + 5);
+        }
+        break;
+      case ORDER_TYPE_SELL:
+        // Sell: if the indicator is decreasing.
+        _result &= _indi.IsDecreasing(2, LINE_UPPER_HISTOGRAM, _shift);
+        _result &= _indi.IsIncreasing(2, LINE_LOWER_HISTOGRAM, _shift);
+        _result &= _indi.IsDecByPct(-_level, LINE_UPPER_HISTOGRAM, _shift, 2);
+        _result &= _indi.IsIncByPct(_level, LINE_LOWER_HISTOGRAM, _shift, 2);
+        if (_result && _method != 0) {
+          if (METHOD(_method, 0)) _result &= _indi.IsDecreasing(2, LINE_UPPER_HISTOGRAM, _shift + 3);
+          if (METHOD(_method, 1)) _result &= _indi.IsDecreasing(2, LINE_UPPER_HISTOGRAM, _shift + 5);
+        }
+        break;
     }
     return _result;
   }
