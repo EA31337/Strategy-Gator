@@ -4,29 +4,28 @@
  */
 
 // User input params.
-INPUT string __Gator_Parameters__ = "-- Gator strategy params --";  // >>> GATOR <<<
-INPUT float Gator_LotSize = 0;                                      // Lot size
-INPUT int Gator_SignalOpenMethod = 2;                               // Signal open method (-127-127)
-INPUT float Gator_SignalOpenLevel = 0.0f;                           // Signal open level
-INPUT int Gator_SignalOpenFilterMethod = 32;                        // Signal open filter method
-INPUT int Gator_SignalOpenBoostMethod = 0;                          // Signal open boost method
-INPUT int Gator_SignalCloseMethod = 2;                              // Signal close method (-127-127)
-INPUT float Gator_SignalCloseLevel = 0.0f;                          // Signal close level
-INPUT int Gator_PriceStopMethod = 1;                                // Price stop method
-INPUT float Gator_PriceStopLevel = 0;                               // Price stop level
-INPUT int Gator_TickFilterMethod = 1;                               // Tick filter method
-INPUT float Gator_MaxSpread = 4.0;                                  // Max spread to trade (pips)
-INPUT short Gator_Shift = 2;                                        // Shift
-INPUT int Gator_OrderCloseTime = -20;                               // Order close time in mins (>0) or bars (<0)
-INPUT string __Gator_Indi_Gator_Parameters__ =
-    "-- Gator strategy: Gator indicator params --";                   // >>> Gator strategy: Gator indicator <<<
-INPUT int Gator_Indi_Gator_Period_Jaw = 6;                            // Jaw Period
-INPUT int Gator_Indi_Gator_Period_Teeth = 10;                         // Teeth Period
-INPUT int Gator_Indi_Gator_Period_Lips = 8;                           // Lips Period
-INPUT int Gator_Indi_Gator_Shift_Jaw = 5;                             // Jaw Shift
-INPUT int Gator_Indi_Gator_Shift_Teeth = 7;                           // Teeth Shift
-INPUT int Gator_Indi_Gator_Shift_Lips = 5;                            // Lips Shift
-INPUT ENUM_MA_METHOD Gator_Indi_Gator_MA_Method = (ENUM_MA_METHOD)2;  // MA Method
+INPUT_GROUP("Gator strategy: strategy params");
+INPUT float Gator_LotSize = 0;                // Lot size
+INPUT int Gator_SignalOpenMethod = 2;         // Signal open method (-127-127)
+INPUT float Gator_SignalOpenLevel = 0.0f;     // Signal open level
+INPUT int Gator_SignalOpenFilterMethod = 32;  // Signal open filter method
+INPUT int Gator_SignalOpenBoostMethod = 0;    // Signal open boost method
+INPUT int Gator_SignalCloseMethod = 2;        // Signal close method (-127-127)
+INPUT float Gator_SignalCloseLevel = 0.0f;    // Signal close level
+INPUT int Gator_PriceStopMethod = 1;          // Price stop method
+INPUT float Gator_PriceStopLevel = 0;         // Price stop level
+INPUT int Gator_TickFilterMethod = 1;         // Tick filter method
+INPUT float Gator_MaxSpread = 4.0;            // Max spread to trade (pips)
+INPUT short Gator_Shift = 2;                  // Shift
+INPUT int Gator_OrderCloseTime = -20;         // Order close time in mins (>0) or bars (<0)
+INPUT_GROUP("Gator strategy: Gator indicator params");
+INPUT int Gator_Indi_Gator_Period_Jaw = 6;                                        // Jaw Period
+INPUT int Gator_Indi_Gator_Period_Teeth = 10;                                     // Teeth Period
+INPUT int Gator_Indi_Gator_Period_Lips = 8;                                       // Lips Period
+INPUT int Gator_Indi_Gator_Shift_Jaw = 5;                                         // Jaw Shift
+INPUT int Gator_Indi_Gator_Shift_Teeth = 7;                                       // Teeth Shift
+INPUT int Gator_Indi_Gator_Shift_Lips = 5;                                        // Lips Shift
+INPUT ENUM_MA_METHOD Gator_Indi_Gator_MA_Method = (ENUM_MA_METHOD)2;              // MA Method
 INPUT ENUM_APPLIED_PRICE Gator_Indi_Gator_Applied_Price = (ENUM_APPLIED_PRICE)3;  // Applied Price
 INPUT int Gator_Indi_Gator_Shift = 0;                                             // Shift
 
