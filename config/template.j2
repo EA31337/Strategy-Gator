@@ -24,7 +24,7 @@ struct Stg_Gator_Params_{{ Timeframe }} : StgParams {
   Stg_Gator_Params_{{ Timeframe }}() : StgParams(stg_gator_defaults) {
     lot_size = {{ Gator_LotSize | default(0) }};
     signal_open_method = {{ Gator_SignalOpenMethod | default(0) }};
-    signal_open_filter = {{ Gator_SignalOpenFilterMethod | default(1) }};
+    signal_open_filter_method = {{ Gator_SignalOpenFilterMethod | default(1) }};
     signal_open_level = (float){{ Gator_SignalOpenLevel | default(0) }};
     signal_open_boost = {{ Gator_SignalOpenBoostMethod | default(0) }};
     signal_close_method = {{ Gator_SignalCloseMethod | default(0) }};
