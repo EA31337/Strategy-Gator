@@ -9,6 +9,7 @@ INPUT float Gator_LotSize = 0;                // Lot size
 INPUT int Gator_SignalOpenMethod = 2;         // Signal open method (-127-127)
 INPUT float Gator_SignalOpenLevel = 0.0f;     // Signal open level
 INPUT int Gator_SignalOpenFilterMethod = 32;  // Signal open filter method
+INPUT int Gator_SignalOpenFilterTime = 6;     // Signal open filter time
 INPUT int Gator_SignalOpenBoostMethod = 0;    // Signal open boost method
 INPUT int Gator_SignalCloseMethod = 2;        // Signal close method (-127-127)
 INPUT int Gator_SignalCloseFilter = 0;        // Signal close filter (-127-127)
@@ -53,6 +54,7 @@ struct Stg_Gator_Params_Defaults : StgParams {
     Set(STRAT_PARAM_OCL, Gator_OrderCloseLoss);
     Set(STRAT_PARAM_OCP, Gator_OrderCloseProfit);
     Set(STRAT_PARAM_OCT, Gator_OrderCloseTime);
+    Set(STRAT_PARAM_SOFT, Gator_SignalOpenFilterTime);
   }
 } stg_gator_defaults;
 
