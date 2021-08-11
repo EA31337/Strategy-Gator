@@ -6,7 +6,7 @@
 // User input params.
 INPUT_GROUP("Gator strategy: strategy params");
 INPUT float Gator_LotSize = 0;                // Lot size
-INPUT int Gator_SignalOpenMethod = 2;         // Signal open method (-127-127)
+INPUT int Gator_SignalOpenMethod = 3;         // Signal open method (-127-127)
 INPUT float Gator_SignalOpenLevel = 0.0f;     // Signal open level
 INPUT int Gator_SignalOpenFilterMethod = 32;  // Signal open filter method
 INPUT int Gator_SignalOpenFilterTime = 6;     // Signal open filter time
@@ -14,24 +14,24 @@ INPUT int Gator_SignalOpenBoostMethod = 0;    // Signal open boost method
 INPUT int Gator_SignalCloseMethod = 2;        // Signal close method (-127-127)
 INPUT int Gator_SignalCloseFilter = 0;        // Signal close filter (-127-127)
 INPUT float Gator_SignalCloseLevel = 0.0f;    // Signal close level
-INPUT int Gator_PriceStopMethod = 1;          // Price stop method
+INPUT int Gator_PriceStopMethod = 1;          // Price stop method (0-127)
 INPUT float Gator_PriceStopLevel = 0;         // Price stop level
 INPUT int Gator_TickFilterMethod = 1;         // Tick filter method
 INPUT float Gator_MaxSpread = 4.0;            // Max spread to trade (pips)
-INPUT short Gator_Shift = 2;                  // Shift
+INPUT short Gator_Shift = 0;                  // Shift
 INPUT float Gator_OrderCloseLoss = 0;         // Order close loss
 INPUT float Gator_OrderCloseProfit = 0;       // Order close profit
 INPUT int Gator_OrderCloseTime = -20;         // Order close time in mins (>0) or bars (<0)
 INPUT_GROUP("Gator strategy: Gator indicator params");
-INPUT int Gator_Indi_Gator_Period_Jaw = 6;                                        // Jaw Period
-INPUT int Gator_Indi_Gator_Period_Teeth = 10;                                     // Teeth Period
-INPUT int Gator_Indi_Gator_Period_Lips = 8;                                       // Lips Period
-INPUT int Gator_Indi_Gator_Shift_Jaw = 5;                                         // Jaw Shift
-INPUT int Gator_Indi_Gator_Shift_Teeth = 7;                                       // Teeth Shift
-INPUT int Gator_Indi_Gator_Shift_Lips = 5;                                        // Lips Shift
-INPUT ENUM_MA_METHOD Gator_Indi_Gator_MA_Method = (ENUM_MA_METHOD)2;              // MA Method
-INPUT ENUM_APPLIED_PRICE Gator_Indi_Gator_Applied_Price = (ENUM_APPLIED_PRICE)3;  // Applied Price
-INPUT int Gator_Indi_Gator_Shift = 0;                                             // Shift
+INPUT int Gator_Indi_Gator_Period_Jaw = 30;                               // Jaw Period
+INPUT int Gator_Indi_Gator_Period_Teeth = 8;                              // Teeth Period
+INPUT int Gator_Indi_Gator_Period_Lips = 4;                               // Lips Period
+INPUT int Gator_Indi_Gator_Shift_Jaw = 6;                                 // Jaw Shift
+INPUT int Gator_Indi_Gator_Shift_Teeth = 4;                               // Teeth Shift
+INPUT int Gator_Indi_Gator_Shift_Lips = 2;                                // Lips Shift
+INPUT ENUM_MA_METHOD Gator_Indi_Gator_MA_Method = (ENUM_MA_METHOD)3;      // MA Method
+INPUT ENUM_APPLIED_PRICE Gator_Indi_Gator_Applied_Price = PRICE_TYPICAL;  // Applied Price
+INPUT int Gator_Indi_Gator_Shift = 0;                                     // Shift
 
 // Structs.
 
@@ -115,6 +115,7 @@ class Stg_Gator : public Strategy {
       // Returns false when indicator data is not valid.
       return false;
     }
+    IndicatorSignal _signals = _indi.GetSignals(4, _shift);
     switch (_cmd) {
       case ORDER_TYPE_BUY:
         // Buy: if the indicator is increasing.
@@ -126,6 +127,7 @@ class Stg_Gator : public Strategy {
           if (METHOD(_method, 0)) _result &= _indi.IsIncreasing(2, LINE_LOWER_HISTOGRAM, _shift + 3);
           if (METHOD(_method, 1)) _result &= _indi.IsIncreasing(2, LINE_LOWER_HISTOGRAM, _shift + 5);
         }
+        _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
         break;
       case ORDER_TYPE_SELL:
         // Sell: if the indicator is decreasing.
@@ -137,6 +139,7 @@ class Stg_Gator : public Strategy {
           if (METHOD(_method, 0)) _result &= _indi.IsDecreasing(2, LINE_UPPER_HISTOGRAM, _shift + 3);
           if (METHOD(_method, 1)) _result &= _indi.IsDecreasing(2, LINE_UPPER_HISTOGRAM, _shift + 5);
         }
+        _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
         break;
     }
     return _result;
