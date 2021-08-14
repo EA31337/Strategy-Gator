@@ -71,6 +71,7 @@ struct Stg_Gator_Params : StgParams {
   }
 };
 
+#ifdef __config__
 // Loads pair specific param values.
 #include "config/H1.h"
 #include "config/H4.h"
@@ -79,6 +80,7 @@ struct Stg_Gator_Params : StgParams {
 #include "config/M15.h"
 #include "config/M30.h"
 #include "config/M5.h"
+#endif
 
 class Stg_Gator : public Strategy {
  public:
