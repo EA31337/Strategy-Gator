@@ -51,6 +51,7 @@ struct Stg_Gator_Params_Defaults : StgParams {
                   ::Gator_SignalOpenBoostMethod, ::Gator_SignalCloseMethod, ::Gator_SignalCloseFilter,
                   ::Gator_SignalCloseLevel, ::Gator_PriceStopMethod, ::Gator_PriceStopLevel, ::Gator_TickFilterMethod,
                   ::Gator_MaxSpread, ::Gator_Shift) {
+    Set(STRAT_PARAM_LS, Gator_LotSize);
     Set(STRAT_PARAM_OCL, Gator_OrderCloseLoss);
     Set(STRAT_PARAM_OCP, Gator_OrderCloseProfit);
     Set(STRAT_PARAM_OCT, Gator_OrderCloseTime);
