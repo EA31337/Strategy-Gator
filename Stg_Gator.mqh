@@ -19,8 +19,8 @@ INPUT float Gator_PriceStopLevel = 2;         // Price stop level
 INPUT int Gator_TickFilterMethod = 32;        // Tick filter method
 INPUT float Gator_MaxSpread = 4.0;            // Max spread to trade (pips)
 INPUT short Gator_Shift = 0;                  // Shift
-INPUT float Gator_OrderCloseLoss = 0;         // Order close loss
-INPUT float Gator_OrderCloseProfit = 0;       // Order close profit
+INPUT float Gator_OrderCloseLoss = 80;        // Order close loss
+INPUT float Gator_OrderCloseProfit = 80;      // Order close profit
 INPUT int Gator_OrderCloseTime = -30;         // Order close time in mins (>0) or bars (<0)
 INPUT_GROUP("Gator strategy: Gator indicator params");
 INPUT int Gator_Indi_Gator_Period_Jaw = 30;                            // Jaw Period
