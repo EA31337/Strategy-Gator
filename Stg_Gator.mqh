@@ -41,8 +41,7 @@ struct Indi_Gator_Params_Defaults : GatorParams {
       : GatorParams(::Gator_Indi_Gator_Period_Jaw, ::Gator_Indi_Gator_Shift_Jaw, ::Gator_Indi_Gator_Period_Teeth,
                     ::Gator_Indi_Gator_Shift_Teeth, ::Gator_Indi_Gator_Period_Lips, ::Gator_Indi_Gator_Shift_Lips,
                     ::Gator_Indi_Gator_MA_Method, ::Gator_Indi_Gator_Applied_Price, ::Gator_Indi_Gator_Shift) {}
-
-} indi_gator_defaults;
+};
 
 // Defines struct with default user strategy values.
 struct Stg_Gator_Params_Defaults : StgParams {
@@ -57,7 +56,7 @@ struct Stg_Gator_Params_Defaults : StgParams {
     Set(STRAT_PARAM_OCT, Gator_OrderCloseTime);
     Set(STRAT_PARAM_SOFT, Gator_SignalOpenFilterTime);
   }
-} stg_gator_defaults;
+};
 
 #ifdef __config__
 // Loads pair specific param values.
@@ -77,7 +76,9 @@ class Stg_Gator : public Strategy {
 
   static Stg_Gator *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
+    Indi_Gator_Params_Defaults indi_gator_defaults;
     GatorParams _indi_params(indi_gator_defaults, _tf);
+    Stg_Gator_Params_Defaults stg_gator_defaults;
     StgParams _stg_params(stg_gator_defaults);
 #ifdef __config__
     SetParamsByTf<GatorParams>(_indi_params, _tf, indi_gator_m1, indi_gator_m5, indi_gator_m15, indi_gator_m30,
