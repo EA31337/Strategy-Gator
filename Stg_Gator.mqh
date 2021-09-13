@@ -87,7 +87,6 @@ class Stg_Gator : public Strategy {
                              stg_gator_h4, stg_gator_h8);
 #endif
     // Initialize indicator.
-    GatorParams gator_params(_indi_params);
     _stg_params.SetIndicator(new Indi_Gator(_indi_params));
     // Initialize Strategy instance.
     ChartParams _cparams(_tf, _Symbol);
