@@ -36,11 +36,11 @@ INPUT int Gator_Indi_Gator_Shift = 0;                                  // Shift
 // Structs.
 
 // Defines struct with default user indicator values.
-struct Indi_Gator_Params_Defaults : GatorParams {
+struct Indi_Gator_Params_Defaults : IndiGatorParams {
   Indi_Gator_Params_Defaults()
-      : GatorParams(::Gator_Indi_Gator_Period_Jaw, ::Gator_Indi_Gator_Shift_Jaw, ::Gator_Indi_Gator_Period_Teeth,
-                    ::Gator_Indi_Gator_Shift_Teeth, ::Gator_Indi_Gator_Period_Lips, ::Gator_Indi_Gator_Shift_Lips,
-                    ::Gator_Indi_Gator_MA_Method, ::Gator_Indi_Gator_Applied_Price, ::Gator_Indi_Gator_Shift) {}
+      : IndiGatorParams(::Gator_Indi_Gator_Period_Jaw, ::Gator_Indi_Gator_Shift_Jaw, ::Gator_Indi_Gator_Period_Teeth,
+                        ::Gator_Indi_Gator_Shift_Teeth, ::Gator_Indi_Gator_Period_Lips, ::Gator_Indi_Gator_Shift_Lips,
+                        ::Gator_Indi_Gator_MA_Method, ::Gator_Indi_Gator_Applied_Price, ::Gator_Indi_Gator_Shift) {}
 };
 
 // Defines struct with default user strategy values.
@@ -77,12 +77,12 @@ class Stg_Gator : public Strategy {
   static Stg_Gator *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
     Indi_Gator_Params_Defaults indi_gator_defaults;
-    GatorParams _indi_params(indi_gator_defaults, _tf);
+    IndiGatorParams _indi_params(indi_gator_defaults, _tf);
     Stg_Gator_Params_Defaults stg_gator_defaults;
     StgParams _stg_params(stg_gator_defaults);
 #ifdef __config__
-    SetParamsByTf<GatorParams>(_indi_params, _tf, indi_gator_m1, indi_gator_m5, indi_gator_m15, indi_gator_m30,
-                               indi_gator_h1, indi_gator_h4, indi_gator_h8);
+    SetParamsByTf<IndiGatorParams>(_indi_params, _tf, indi_gator_m1, indi_gator_m5, indi_gator_m15, indi_gator_m30,
+                                   indi_gator_h1, indi_gator_h4, indi_gator_h8);
     SetParamsByTf<StgParams>(_stg_params, _tf, stg_gator_m1, stg_gator_m5, stg_gator_m15, stg_gator_m30, stg_gator_h1,
                              stg_gator_h4, stg_gator_h8);
 #endif

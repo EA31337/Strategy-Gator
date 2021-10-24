@@ -4,8 +4,8 @@
  */
 
 // Defines indicator's parameter values for the given pair symbol and timeframe.
-struct Indi_Gator_Params_H4 : GatorParams {
-  Indi_Gator_Params_H4() : GatorParams(indi_gator_defaults, PERIOD_H4) {
+struct Indi_Gator_Params_H4 : IndiGatorParams {
+  Indi_Gator_Params_H4() : IndiGatorParams(indi_gator_defaults, PERIOD_H4) {
     applied_price = (ENUM_APPLIED_PRICE)0;
     jaw_period = 13;
     jaw_shift = 8;
