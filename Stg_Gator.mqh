@@ -35,14 +35,6 @@ INPUT int Gator_Indi_Gator_Shift = 0;                                  // Shift
 
 // Structs.
 
-// Defines struct with default user indicator values.
-struct Indi_Gator_Params_Defaults : IndiGatorParams {
-  Indi_Gator_Params_Defaults()
-      : IndiGatorParams(::Gator_Indi_Gator_Period_Jaw, ::Gator_Indi_Gator_Shift_Jaw, ::Gator_Indi_Gator_Period_Teeth,
-                        ::Gator_Indi_Gator_Shift_Teeth, ::Gator_Indi_Gator_Period_Lips, ::Gator_Indi_Gator_Shift_Lips,
-                        ::Gator_Indi_Gator_MA_Method, ::Gator_Indi_Gator_Applied_Price, ::Gator_Indi_Gator_Shift) {}
-};
-
 // Defines struct with default user strategy values.
 struct Stg_Gator_Params_Defaults : StgParams {
   Stg_Gator_Params_Defaults()
@@ -94,8 +86,11 @@ class Stg_Gator : public Strategy {
    * Event on strategy's init.
    */
   void OnInit() {
-    Indi_Gator_Params_Defaults indi_gator_defaults;
-    IndiGatorParams _indi_params(indi_gator_defaults, Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
+    IndiGatorParams _indi_params(
+        ::Gator_Indi_Gator_Period_Jaw, ::Gator_Indi_Gator_Shift_Jaw, ::Gator_Indi_Gator_Period_Teeth,
+        ::Gator_Indi_Gator_Shift_Teeth, ::Gator_Indi_Gator_Period_Lips, ::Gator_Indi_Gator_Shift_Lips,
+        ::Gator_Indi_Gator_MA_Method, ::Gator_Indi_Gator_Applied_Price, ::Gator_Indi_Gator_Shift);
+    _indi_params.SetTf(Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
     SetIndicator(new Indi_Gator(_indi_params));
   }
 
