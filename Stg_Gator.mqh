@@ -66,7 +66,7 @@ class Stg_Gator : public Strategy {
   Stg_Gator(StgParams &_sparams, TradeParams &_tparams, ChartParams &_cparams, string _name = "")
       : Strategy(_sparams, _tparams, _cparams, _name) {}
 
-  static Stg_Gator *Init(ENUM_TIMEFRAMES _tf = NULL) {
+  static Stg_Gator *Init(ENUM_TIMEFRAMES _tf = NULL, EA* _ea = NULL) {
     // Initialize strategy initial values.
     Stg_Gator_Params_Defaults stg_gator_defaults;
     StgParams _stg_params(stg_gator_defaults);
